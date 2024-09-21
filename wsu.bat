@@ -8,7 +8,7 @@ for /f "tokens=4 delims=. " %%a in ('ver') do if %%a neq 10 echo Sorry, WSU is n
 for /f %%a in ('echo prompt $E ^| cmd') do set "esc=%%a"
 net stop beep>nul 2>nul
 :selector
-cls&echo Windows Scripts Utility (build 092024)&echo.&echo    [1] Chris Titus Tech^'s Windows Utility&echo    [2] Microsoft Activation Scripts&echo    [3] Windows10Debloater&echo    [4] Windows11Debloat&echo    [!esc![92m0!esc![0m] Quit&echo.&echo !esc![93mChoose an option using your keyboard...!esc![0m&choice /c 12340 /n /cs&cls&goto optn!errorlevel!
+cls&echo Windows Scripts Utility&echo.&echo    [1] Chris Titus Tech^'s Windows Utility&echo    [2] Microsoft Activation Scripts&echo    [3] Windows10Debloater&echo    [4] Windows11Debloat&echo    [!esc![92m0!esc![0m] Quit&echo.&echo !esc![93mChoose an option using your keyboard...!esc![0m&choice /c 12340 /n /cs&cls&goto optn!errorlevel!
 :optn1
 set link=https://github.com/ChrisTitusTech/winutil&set command=start /wait powershell -Command "Start-Process -Verb RunAs powershell '-NoExit -ExecutionPolicy Bypass -Command irm https://christitus.com/win|iex'"&goto exec
 :optn2
@@ -20,6 +20,6 @@ set link=https://github.com/Raphire/Win11Debloat&set command=start /wait powersh
 :optn5
 exit
 :exec
-echo !esc![30m!esc![43mThis script can be found at: %link%!esc![0m&call :connection&echo ^> Executing script...&%command% >nul 2>nul&echo ^> The script has exited.&echo.&echo !esc![93mPress any key to go back...!esc![0m&pause>nul&goto selector
+echo ^> !esc![96m%link%!esc![0m&call :connection&echo ^> Executing script...&%command% >nul 2>nul&echo ^> The script has exited.&echo.&echo !esc![93mPress any key to go back...!esc![0m&pause>nul&goto selector
 :connection
-echo.&echo ^> Checking internet connection...&ping google.com -n 1 >nul&if !errorlevel! neq 0 (echo ^> !esc![91mIt looks like you don^'t have an internet connection. Please connect to the internet and try again.!esc![0m&echo.&echo !esc![93mPress any key to go back...!esc![0m&pause>nul&goto selector) else echo ^> !esc![92mConnection check passed^^!!esc![0m
+echo ^> Checking internet connection...&ping google.com -n 1 >nul&if !errorlevel! neq 0 (echo ^> !esc![91mIt looks like you don^'t have an internet connection. Please connect to the internet and try again.!esc![0m&echo.&echo !esc![93mPress any key to go back...!esc![0m&pause>nul&goto selector) else echo ^> !esc![92mConnection check passed^^!!esc![0m
