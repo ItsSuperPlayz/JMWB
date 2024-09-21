@@ -1,0 +1,1 @@
+irm https://raw.githubusercontent.com/ItsSuperPlayz/WSU/refs/heads/main/wsu.bat -OutFile $env:temp\wsu.bat; Start-Process cmd -ArgumentList '/c %temp%\wsu.bat' -Verb RunAs -Wait; Start-Process cmd -ArgumentList '/c del %temp%\wsu.bat' -NoNewWindow
