@@ -5,44 +5,8 @@
 
 @echo off&title WSU&setlocal enabledelayedexpansion
 for /f "tokens=4 delims=. " %%a in ('ver') do if %%a neq 10 echo Sorry, WSU is not supported on your Windows version. Please use Windows 10/11 to continue.&pause>nul&exit
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:: Begin ELEVATOR
-:init
-setlocal DisableDelayedExpansion
-set cmdInvoke=1
-set winSysFolder=System32
-set "batchPath=%~dpnx0"
-for %%k in (%0) do set batchName=%%~nk
-set "vbsGetPrivileges=%temp%\OEgetPriv_%batchName%.vbs"
-setlocal EnableDelayedExpansion
-:checkPrivileges
-NET FILE 1>NUL 2>NUL
-if '%errorlevel%' == '0' ( goto gotPrivileges ) else ( goto getPrivileges )
-:getPrivileges
-if '%1'=='ELEV' (echo ELEV & shift /1 & goto gotPrivileges)
-ECHO Set UAC = CreateObject^("Shell.Application"^) > "%vbsGetPrivileges%"
-ECHO args = "ELEV " >> "%vbsGetPrivileges%"
-ECHO For Each strArg in WScript.Arguments >> "%vbsGetPrivileges%"
-ECHO args = args ^& strArg ^& " "  >> "%vbsGetPrivileges%"
-ECHO Next >> "%vbsGetPrivileges%"
-if '%cmdInvoke%'=='1' goto InvokeCmd 
-ECHO UAC.ShellExecute "!batchPath!", args, "", "runas", 1 >> "%vbsGetPrivileges%"
-goto ExecElevation
-:InvokeCmd
-ECHO args = "/c """ + "!batchPath!" + """ " + args >> "%vbsGetPrivileges%"
-ECHO UAC.ShellExecute "%SystemRoot%\%winSysFolder%\cmd.exe", args, "", "runas", 1 >> "%vbsGetPrivileges%"
-:ExecElevation
-"%SystemRoot%\%winSysFolder%\WScript.exe" "%vbsGetPrivileges%" %*
-exit /B
-:gotPrivileges
-setlocal & cd /d %~dp0
-if '%1'=='ELEV' (del "%vbsGetPrivileges%" 1>nul 2>nul  &  shift /1)
-:: End ELEVATOR
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
 for /f %%a in ('echo prompt $E ^| cmd') do set "esc=%%a"
-start /wait /b net stop beep>nul 2>nul&start /wait /b sc stop beep>nul 2>nul
+net stop beep>nul 2>nul
 :selector
 cls&echo Windows Scripts Utility (build 092024)&echo.&echo    [1] Chris Titus Tech^'s Windows Utility&echo    [2] Microsoft Activation Scripts&echo    [3] Windows10Debloater&echo    [4] Windows11Debloat&echo    [!esc![92m0!esc![0m] Quit&echo.&echo !esc![93mChoose an option using your keyboard...!esc![0m&choice /c 12340 /n /cs&cls&goto optn!errorlevel!
 :optn1
