@@ -5,7 +5,6 @@
 
 @echo off&title WSU&setlocal enabledelayedexpansion
 for /f "tokens=4 delims=. " %%a in ('ver') do if %%a neq 10 echo Sorry, WSU is not supported on your Windows version. Please use Windows 10/11 to continue.&pause>nul&exit
-echo Please wait...
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: Begin ELEVATOR
